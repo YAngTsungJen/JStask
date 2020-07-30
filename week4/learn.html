@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第四週作業</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="app" class="container mt-3">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">旅館房間後台管理</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">主頁<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">房間列表</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">優惠活動</a>
+                    </li>
+                </ul>
+                <span class="navbar-text">
+                    <button type="button" class="btn btn-link" @click="signout">登出</button>
+                </span>
+            </div>
+        </nav>
+        <div class="text-right mt-4">
+            <button type="button" class="btn btn-primary" data-target="#productModal" @click="openModal('new')">新加入房間
+            </button>
+        </div>
+        <table class="table table-striped mt-4 ">
+            <thead>
+                <tr>
+                    <th scope="col">分類</th>
+                    <th scope="col">產品名稱</th>
+                    <th scope="col"></th>
+                    <th scope="col">額外服務</th>
+                    <th scope="col">原價</th>
+                    <th scope="col">售價</th>
+                    <th scope="col">設施服務</th>
+                    <th scope="col">編輯</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for='(item) in products' :key='item.id'>
+                    <th scope="row">{{item.category}}</th>
+                    <td>{{item.title}} </td>
+                    <td></td>
+                    <td></td>
+                    <td>{{item.origin_price}} </td>
+                    <td>{{item.price}} </td>
+                    <td>
+                        <label class=" switch">
+                            <input type="checkbox" disabled :checked="item.enabled">
+                            <span class="slider round"></span>
+                        </label>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-outline-primary btn-sm"
+                                @click="openModal('edit', item)" :disabled ="loadingbtn === item.id" >加入<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" v-if = "loadingbtn === item.id"></span></button>
+                            <button type="button" class="btn btn-outline-danger btn-sm"
+                                @click="openModal('delete',item)">取消</span></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+  <!-- 分頁功能 -->
+        <!-- 前內後外(要傳入的元件名稱) -->
+        <pagination :pages = "pagination" @update = "getProducts"> </pagination>
+
+        <!-- Modal -->
+        <div id="productModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <model :temp-product="tempProduct" :is-new ="isNew" :api = "api" :token="token" @update ="getProducts"></model>
+        </div>
+        <div id="delProductModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <model2 :temp-product="tempProduct" :api="api" @delete ="getProducts"></model2>
+        </div>
+    </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+        </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="learn.js" type="module"></script>
+</body>
+
+</html>

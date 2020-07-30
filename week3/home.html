@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第三週作業</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="app" class="container mt-3">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">旅館房間後台管理</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="text-right mt-4">
+            <button type="button" class="btn btn-primary" @click="openModal('new')">
+                加入新房間
+            </button>
+        </div>
+        <table class="table table-striped mt-4 ">
+            <thead>
+                <tr>
+                    <th scope="col">分類</th>
+                    <th scope="col">產品名稱</th>
+                    <th scope="col"></th>
+                    <th scope="col">額外服務</th>
+                    <th scope="col">原價</th>
+                    <th scope="col">售價</th>
+                    <th scope="col">設施服務</th>
+                    <th scope="col">編輯</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for='(item) in products' :key='item.id'>
+                    <th scope="row">{{item.category}}</th>
+                    <td>{{item.title}} </td>
+                    <td></td>
+                    <td></td>
+                    <td>{{item.origin_price}} </td>
+                    <td>{{item.price}} </td>
+                    <td>
+                        <span v-if="item.is_enabled" class="text-success">有額外服務</span>
+                        <span v-else>沒有其他服務</span>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-outline-primary btn-sm"
+                                @click="openModal('edit', item)">加入</button>
+                            <button type="button" class="btn btn-outline-danger btn-sm"
+                                @click="openModal('delete',item)">取消</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Modal -->
+
+        <div id="productModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-dark text-white">
+                        <h5 class="modal-title" id="exampleModalLabel ">新增產品</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="imageUrl">輸入圖片網址</label>
+                                    <input id="imageUrl" v-model="tempProduct.imageUrl" type="text" class="form-control"
+                                        placeholder="請輸入圖片連結">
+                                </div>
+                                <img class="img-fluid" :src="tempProduct.imageUrl" alt="">
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label for="title">標題</label>
+                                    <input id="tempProduct.title" v-model="tempProduct.title" type="text"
+                                        class="form-control" placeholder="請輸入標題">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="category">分類</label>
+                                        <input id="tempProduct.category" v-model="tempProduct.category" type="text"
+                                            class="form-control" placeholder="請輸入分類">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="unit">單位</label>
+                                        <input id="tempProduct.unit" v-model="tempProduct.unit" type="text"
+                                            class="form-control" placeholder="請輸入單位">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="origin_price">原價</label>
+                                        <input id="tempProduct.origin_price" v-model="tempProduct.origin_price"
+                                            type="text" class="form-control" placeholder="請輸入原價">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="price">售價</label>
+                                        <input id="tempProduct.price" v-model="tempProduct.price" type="text"
+                                            class="form-control" placeholder="請輸入售價">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label for="description">產品描述</label>
+                                    <textarea name="description" id="tempProduct.description"
+                                        v-model="tempProduct.description" class="form-control"
+                                        placeholder="請輸入產品描述"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="content">說明內容</label>
+                                    <textarea name="content" id="tempProduct.content" v-model="tempProduct.content"
+                                        class="form-control" placeholder="請輸入說明內容"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <label for="is_enabled" class="form-check-label"></label>
+                                        <input type="checkbox" class="form-check-input" name="is_enabled"
+                                            id="tempProduct.is_enabled" v-model="tempProduct.is_enabled">額外服務
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" @click="updateData">確認</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="delProductModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content border-0">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 id="exampleModalLabel" class="modal-title">
+                            <span>取消房間</span>
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        是否刪除
+                        <strong class="text-danger">{{ tempProduct.title }}</strong> 房間(刪除後將無法恢復)。
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
+                            取消
+                        </button>
+                        <button type="button" class="btn btn-danger" @click="delProduct">
+                            確認刪除
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+        </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="home.js"></script>
+</body>
+
+</html>
