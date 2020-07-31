@@ -4,4 +4,6 @@
 //         config.module.rules.delete('eslint');
 //     }
 // }
-
+module.exports = {
+  publicPath: '/JStask/dist',
+}
