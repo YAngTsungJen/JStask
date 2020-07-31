@@ -5,5 +5,5 @@
 //     }
 // }
 module.exports = {
-  publicPath: '/JStask/dist',
+  publicPath: '/JStask/week6/demo_project/dist/',
 }
