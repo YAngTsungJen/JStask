@@ -1,5 +1,5 @@
 <template>
     <div>
-        <h2>這是後台優惠券</h2>
+        <h2>後台單一產品</h2>
     </div>
 </template>

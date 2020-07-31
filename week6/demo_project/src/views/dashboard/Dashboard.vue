@@ -2,6 +2,8 @@
     <div>
         <h2>這是管理頁面</h2>
         <router-view :token="token" v-if="checkSuccess"/>
+        <router-link to="/admin/coupons">優惠活動</router-link> |
+        <router-link to="/admin/product">套房列表</router-link> |
     </div>
 </template>
 

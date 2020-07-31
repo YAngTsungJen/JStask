@@ -1,11 +1,12 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/products">Products</router-link> |
-      <router-link to="/cart">Cart</router-link> |
-      <router-link to="/admin/products">Dashboard</router-link>
+      <router-link to="/">首頁</router-link> |
+      <router-link to="/about">關於我們</router-link> |
+      <router-link to="/products">套房介紹</router-link> |
+      <router-link to="/cart">預約列表</router-link> |
+      <router-link to="/coupons">優惠活動</router-link> |
+      <router-link to="/admin/products">登入</router-link>
     </div>
     <router-view/>
   </div>
