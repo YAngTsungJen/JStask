@@ -1,7 +1,5 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production'
-  ? '/JStask/week6/demo_project/dist/'
-  : '/'
+  publicPath: '/JStask/week6/demo_project/dist/'
 }
 
 const webpack = require('webpack');
@@ -16,4 +14,6 @@ module.exports = {
       }),
     ],
   },
+
+  publicPath: '/JStask/week6/demo_project/dist/'
 };
