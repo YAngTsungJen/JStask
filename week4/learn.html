@@ -68,7 +68,9 @@
                     <td>
                         <div class="btn-group">
                             <button type="button" class="btn btn-outline-primary btn-sm"
-                                @click="openModal('edit', item)" :disabled ="loadingbtn === item.id" >加入<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" v-if = "loadingbtn === item.id"></span></button>
+                                @click="openModal('edit', item)" :disabled="loadingbtn === item.id">加入<span
+                                    class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"
+                                    v-if="loadingbtn === item.id"></span></button>
                             <button type="button" class="btn btn-outline-danger btn-sm"
                                 @click="openModal('delete',item)">取消</span></button>
                         </div>
@@ -77,18 +79,18 @@
             </tbody>
         </table>
 
-  <!-- 分頁功能 -->
+        <!-- 分頁功能 -->
         <!-- 前內後外(要傳入的元件名稱) -->
-        <pagination :pages = "pagination" @update = "getProducts"> </pagination>
+        <pagination :pages="pagination" @update="getProducts"> </pagination>
 
         <!-- Modal -->
         <div id="productModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
-            <model :temp-product="tempProduct" :is-new ="isNew" :api = "api" :token="token" @update ="getProducts"></model>
+            <model :temp-product="tempProduct" :is-new="isNew" :api="api" :token="token" @update="getProducts"></model>
         </div>
         <div id="delProductModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
-            <model2 :temp-product="tempProduct" :api="api" @delete ="getProducts"></model2>
+            <model2 :temp-product="tempProduct" :api="api" @delete="getProducts"></model2>
         </div>
     </div>
     </div>
