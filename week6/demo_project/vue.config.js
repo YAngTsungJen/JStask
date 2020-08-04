@@ -1,5 +1,7 @@
 module.exports = {
-  publicPath: '/JStask/week6/demo_project/dist/'
+  publicPath: process.env.NODE_ENV === 'production'
+  ? '/JStask/week6/demo_project/dist/'
+  : '/'
 }
 
 const webpack = require('webpack');
